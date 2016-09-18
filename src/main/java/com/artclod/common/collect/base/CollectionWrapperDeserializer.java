@@ -32,6 +32,10 @@ public abstract class CollectionWrapperDeserializer<W, C extends Collection<?>, 
     
     protected abstract W wrapCollection(C c);
     
+    protected abstract Class<C> wrappedType();
+
+    protected abstract Class<W> wrapperType();
+
     @Override
     public JsonDeserializer<?> createContextual(DeserializationContext ctxt, BeanProperty property) throws JsonMappingException {
         THIS deserializer = instance();
@@ -47,14 +51,14 @@ public abstract class CollectionWrapperDeserializer<W, C extends Collection<?>, 
 		ObjectCodec oc = p.getCodec();
 		C inner = (valueType == null) ?
 			(C) oc.readValue(p, ArrayList.class) :
-			(C) oc.readValue(p, CollectionType.construct(ArrayList.class, valueType));
+			(C) oc.readValue(p, CollectionType.construct(wrappedType(), valueType));
 		
 		return wrapCollection(inner);
 	}
 	
 	@Override
-	public Class<?> handledType() {
-		return ArrayFList.class;
+	public Class<W> handledType() {
+		return wrapperType();
 	}
 	
 }
