@@ -1,0 +1,103 @@
+// http://mike-neck.github.io/blog/2013/06/21/how-to-publish-artifacts-with-gradle-maven-publish-plugin-version-1-dot-6/
+// apply plugin: 'maven-publish' // https://gradle.org/docs/current/userguide/publishing_maven.html
+
+// http://central.sonatype.org/pages/ossrh-guide.html#deployment
+// -> http://central.sonatype.org/pages/gradle.html 
+// -> http://yennicktrevels.com/blog/2013/10/11/automated-gradle-project-deployment-to-sonatype-oss-repository/
+// -> http://central.sonatype.org/pages/ossrh-guide.html#create-a-ticket-with-sonatype
+
+apply plugin: 'java' // http://gradle.org/docs/current/userguide/tutorial_java_projects.html
+apply plugin: 'eclipse'
+apply plugin: 'signing' // http://gradle.org/docs/current/userguide/signing_plugin.html
+apply plugin: 'maven' // https://gradle.org/docs/current/userguide/artifact_management.html
+
+// http://gradle.org/docs/current/userguide/tutorial_this_and_that.html#sec:gradle_properties_and_system_properties
+// http://central.sonatype.org/pages/working-with-pgp-signatures.html
+
+sourceCompatibility = 1.8
+
+group = 'com.github.kristiankime'
+version = '0.0.0'
+archivesBaseName = "jackson-datatype-functional-collections"
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compile group: 'com.github.kristiankime',        name: 'functional-collections', version: '0.0.4' 
+	compile group: 'com.fasterxml.jackson.core',     name: 'jackson-databind',       version: '2.7.4'
+	compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jdk8',	 version: '2.7.4'
+	compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-guava', version: '2.7.4'
+	
+	testCompile group: 'org.apache.commons', name: 'commons-lang3', version: '3.4'
+	testCompile group: 'junit',              name: 'junit',         version: '4.12'
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+	classifier = 'javadoc'
+	from tasks.javadoc.destinationDir
+}
+
+task sourcesJar(type: Jar) {
+	from sourceSets.main.allSource
+	classifier = 'sources'
+}
+
+artifacts {
+	archives jar
+
+	archives javadocJar
+	archives sourcesJar
+}
+
+signing {
+	sign configurations.archives
+}
+
+uploadArchives {
+	repositories {
+		mavenDeployer {
+			beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+			repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+			  authentication(userName: ossrhUsername, password: ossrhPassword)
+			}
+		
+			snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+			  authentication(userName: ossrhUsername, password: ossrhPassword)
+			}
+			
+			pom.project {
+			   name 'JacksonFCollections'
+			   packaging 'jar'
+			   description 'JacksonFCollections is jackson json serialization for FCollections'
+			   url 'https://github.com/kristiankime/FCollections/'
+
+			   scm {
+				   url 'scm:git@github.com:kristiankime/JacksonFCollections.git'
+				   connection 'scm:git@github.com:kristiankime/JacksonFCollections.git'
+				   developerConnection 'scm:git@github.com:kristiankime/JacksonFCollections.git'
+			   }
+
+			   licenses {
+				   license {
+					   name 'The MIT License (MIT)'
+					   url 'http://opensource.org/licenses/MIT'
+					   distribution 'repo'
+				   }
+			   }
+
+			   developers {
+				   developer {
+					   id 'Kris'
+					   name 'Kristian Kime'
+					   email 'kristian.kime@gmail.com'
+				   }
+			   }
+		   }
+		}
+	}
+}
+
+
