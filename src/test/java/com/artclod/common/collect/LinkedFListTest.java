@@ -3,7 +3,7 @@ package com.artclod.common.collect;
 import com.artclod.common.json.SerializeDeserializeCollectionJsonContract;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class ArrayFListTest extends SerializeDeserializeCollectionJsonContract<ArrayFList<?>> {
+public class LinkedFListTest extends SerializeDeserializeCollectionJsonContract<LinkedFList<?>> {
 
 	public ObjectMapper objectMapper() {
 		return Json.objectMapper();
@@ -11,14 +11,14 @@ public class ArrayFListTest extends SerializeDeserializeCollectionJsonContract<A
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
-	public Class<ArrayFList<?>> type() {
-		return (Class) ArrayFList.class;
+	public Class<LinkedFList<?>> type() {
+		return (Class) LinkedFList.class;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public <E> ArrayFList<?> create(E... elements) {
-		return ArrayFList.create(elements);
+	public <E> LinkedFList<?> create(E... elements) {
+		return LinkedFList.create(elements);
 	}
 
 }

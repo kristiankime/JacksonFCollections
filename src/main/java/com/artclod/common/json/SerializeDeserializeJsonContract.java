@@ -33,4 +33,5 @@ public abstract class SerializeDeserializeJsonContract<T extends Serializable> {
     	}
     }
 	
+    
 }
