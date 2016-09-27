@@ -29,4 +29,5 @@ public class ArrayFListSerializer extends JsonSerializer<ArrayFList<?>>  {
 	  serialize(value, gen, provider); // call your customized serialize method
 	  typeSer.writeTypeSuffixForObject(value, gen);
 	}
+	
 }

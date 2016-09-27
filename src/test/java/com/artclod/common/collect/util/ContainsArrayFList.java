@@ -1,35 +1,30 @@
 package com.artclod.common.collect.util;
 
 import java.io.Serializable;
-import java.util.Collection;
 
 import com.artclod.common.collect.ArrayFList;
-import com.artclod.common.collect.FCollection;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 
-public class Contains implements Serializable {
+public class ContainsArrayFList implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	@JsonTypeInfo(use = JsonTypeInfo.Id.MINIMAL_CLASS, include = As.PROPERTY, property = "@class")
-	private FCollection<Contained<?>> thing;
+	private ArrayFList<Contained<?>> thing;
 
-	public Contains() {
+	public ContainsArrayFList() {
 		this(ArrayFList.create());
 	}
 	
 	@JsonCreator
-	public Contains(@JsonProperty("thing") FCollection<Contained<?>> thing) {
+	public ContainsArrayFList(@JsonProperty("thing") ArrayFList<Contained<?>> thing) {
 		this.thing = thing;
 	}
 
-	public Collection<? extends Contained<?>> getThing() {
+	public ArrayFList<Contained<?>> getThing() {
 		return thing;
 	}
 
-	public void setThing(FCollection<Contained<?>> list) {
+	public void setThing(ArrayFList<Contained<?>> list) {
 		this.thing = list;
 	}
 
@@ -54,7 +49,7 @@ public class Contains implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Contains other = (Contains) obj;
+		ContainsArrayFList other = (ContainsArrayFList) obj;
 		if (thing == null) {
 			if (other.thing != null)
 				return false;

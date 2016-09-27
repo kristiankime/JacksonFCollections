@@ -14,6 +14,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.ContextualDeserializer;
 import com.fasterxml.jackson.databind.type.CollectionType;
+import com.fasterxml.jackson.databind.type.TypeFactory;
 
 /**
  * This class handles of the needs of json deserialization for a class that is simply a wrapper around an existing Java Collection that already has a deserializer.
@@ -62,10 +63,12 @@ public abstract class CollectionWrapperDeserializer<W, C extends Collection<?>, 
 //				(C) oc.treeToValue(node, Object.class) :
 //				(C) oc.treeToValue(node, valueType.getRawClass());
 		
+		
+		
 		ObjectCodec oc = p.getCodec();
 		C inner = (valueType == null) ?
 			(C) oc.readValue(p, wrappedType()) :
-			(C) oc.readValue(p, CollectionType.construct(wrappedType(), valueType));
+			(C) oc.readValue(p, TypeFactory.defaultInstance().constructCollectionType(wrappedType(), valueType));
 		
 		return wrapCollection(inner);
 	}
