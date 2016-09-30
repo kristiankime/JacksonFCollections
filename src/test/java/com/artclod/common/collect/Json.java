@@ -1,7 +1,5 @@
 package com.artclod.common.collect;
 
-import java.util.ArrayList;
-
 import com.artclod.common.FCollectionModule;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -18,9 +16,6 @@ public class Json {
 		mapper.registerModule(new GuavaModule());
 		mapper.registerModule(new Jdk8Module());
 		mapper.registerModule(new FCollectionModule());
-		
-		mapper.getTypeFactory().constructCollectionType(ArrayList.class, String.class);
-		
 		return mapper;
 	}
 	
