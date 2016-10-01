@@ -3,22 +3,33 @@ package com.artclod.common;
 import com.artclod.common.collect.ArrayFList;
 import com.artclod.common.collect.FCollection;
 import com.artclod.common.collect.FList;
+import com.artclod.common.collect.FMap;
 import com.artclod.common.collect.FSet;
 import com.artclod.common.collect.GuavaImFList;
 import com.artclod.common.collect.GuavaImFListSerializer;
+import com.artclod.common.collect.GuavaImFMap;
 import com.artclod.common.collect.GuavaImFSet;
 import com.artclod.common.collect.GuavaImFSetSerializer;
+import com.artclod.common.collect.HashFMap;
+import com.artclod.common.collect.HashFSet;
 import com.artclod.common.collect.ImFCollection;
 import com.artclod.common.collect.ImFList;
+import com.artclod.common.collect.ImFMap;
 import com.artclod.common.collect.ImFSet;
 import com.artclod.common.collect.LinkedFList;
+import com.artclod.common.collect.LinkedHashFMap;
 import com.artclod.common.collect.LinkedHashFSet;
 import com.artclod.common.collect.base.ArrayFListDeserializer;
 import com.artclod.common.collect.base.ArrayFListSerializer;
 import com.artclod.common.collect.base.GuavaImFListDeserializer;
+import com.artclod.common.collect.base.GuavaImFMapDeserializer;
 import com.artclod.common.collect.base.GuavaImFSetDeserializer;
+import com.artclod.common.collect.base.HashFMapDeserializer;
+import com.artclod.common.collect.base.HashFSetDeserializer;
 import com.artclod.common.collect.base.LinkedFListDeserializer;
 import com.artclod.common.collect.base.LinkedFListSerializer;
+import com.artclod.common.collect.base.LinkedHashFMapDeserializer;
+import com.artclod.common.collect.base.LinkedHashFSetDeserializer;
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.module.SimpleAbstractTypeResolver;
 import com.fasterxml.jackson.databind.module.SimpleDeserializers;
@@ -51,6 +62,8 @@ public class FCollectionModule extends SimpleModule {
 		resolver.addMapping(ImFList.class, GuavaImFList.class);
 		resolver.addMapping(FSet.class, LinkedHashFSet.class);
 		resolver.addMapping(ImFSet.class, GuavaImFSet.class);
+		resolver.addMapping(FMap.class, LinkedHashFMap.class);
+		resolver.addMapping(ImFMap.class, GuavaImFMap.class);
 		context.addAbstractTypeResolver(resolver);	
 	}
 
@@ -59,7 +72,15 @@ public class FCollectionModule extends SimpleModule {
 		deserializers.addDeserializer(ArrayFList.class, new ArrayFListDeserializer());
 		deserializers.addDeserializer(LinkedFList.class, new LinkedFListDeserializer());
 		deserializers.addDeserializer(GuavaImFList.class, new GuavaImFListDeserializer());
+		
+		deserializers.addDeserializer(LinkedHashFSet.class, new LinkedHashFSetDeserializer());
+		deserializers.addDeserializer(HashFSet.class, new HashFSetDeserializer());
 		deserializers.addDeserializer(GuavaImFSet.class, new GuavaImFSetDeserializer());
+		
+		deserializers.addDeserializer(HashFMap.class, new HashFMapDeserializer());
+		deserializers.addDeserializer(LinkedHashFMap.class, new LinkedHashFMapDeserializer());
+		deserializers.addDeserializer(GuavaImFMap.class, new GuavaImFMapDeserializer());
+		
 //		deserializers.addDeserializer(SomeDeserializer.type(), new SomeDeserializer());
 //		deserializers.addDeserializer(NoneDeserializer.type(), new NoneDeserializer());
 		return deserializers;

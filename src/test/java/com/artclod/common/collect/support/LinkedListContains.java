@@ -3,9 +3,9 @@ package com.artclod.common.collect.support;
 import java.util.LinkedList;
 
 import com.artclod.common.collect.util.ContainedInteger;
-import com.artclod.common.collect.util.JsonContains;
+import com.artclod.common.collect.util.JsonCollectionContains;
 
-public class LinkedListContains extends JsonContains<LinkedList<ContainedInteger>, ContainedInteger> {
+public class LinkedListContains extends JsonCollectionContains<LinkedList<ContainedInteger>, ContainedInteger> {
 	public LinkedListContains() {
 		super();
 	}

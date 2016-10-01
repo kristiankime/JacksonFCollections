@@ -3,9 +3,9 @@ package com.artclod.common.collect.support;
 import java.util.ArrayList;
 
 import com.artclod.common.collect.util.ContainedInteger;
-import com.artclod.common.collect.util.JsonContains;
+import com.artclod.common.collect.util.JsonCollectionContains;
 
-public class ArrayListContains extends JsonContains<ArrayList<ContainedInteger>, ContainedInteger> {
+public class ArrayListContains extends JsonCollectionContains<ArrayList<ContainedInteger>, ContainedInteger> {
 	public ArrayListContains() {
 		super();
 	}

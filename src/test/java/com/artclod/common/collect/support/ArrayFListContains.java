@@ -2,9 +2,9 @@ package com.artclod.common.collect.support;
 
 import com.artclod.common.collect.ArrayFList;
 import com.artclod.common.collect.util.ContainedInteger;
-import com.artclod.common.collect.util.JsonContains;
+import com.artclod.common.collect.util.JsonCollectionContains;
 
-public class ArrayFListContains extends JsonContains<ArrayFList<ContainedInteger>, ContainedInteger> {
+public class ArrayFListContains extends JsonCollectionContains<ArrayFList<ContainedInteger>, ContainedInteger> {
 	public ArrayFListContains() {
 		super();
 	}

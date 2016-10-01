@@ -2,14 +2,14 @@ package com.artclod.common.collect.util;
 
 import java.util.Collection;
 
-public abstract class JsonContains<C extends Collection<E>, E> {
+public abstract class JsonCollectionContains<C extends Collection<E>, E> {
 	private C collection = null;
 
-	public JsonContains() {
+	public JsonCollectionContains() {
 		//
 	}
 	
-	public JsonContains(C collection) {
+	public JsonCollectionContains(C collection) {
 		this.collection = collection;
 	}
 
@@ -37,7 +37,7 @@ public abstract class JsonContains<C extends Collection<E>, E> {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		JsonContains<?, ?> other = (JsonContains<?, ?>) obj;
+		JsonCollectionContains<?, ?> other = (JsonCollectionContains<?, ?>) obj;
 		if (collection == null) {
 			if (other.collection != null)
 				return false;

@@ -2,9 +2,9 @@ package com.artclod.common.collect.support;
 
 import com.artclod.common.collect.HashFSet;
 import com.artclod.common.collect.util.ContainedInteger;
-import com.artclod.common.collect.util.JsonContains;
+import com.artclod.common.collect.util.JsonCollectionContains;
 
-public class HashFSetContains extends JsonContains<HashFSet<ContainedInteger>, ContainedInteger> {
+public class HashFSetContains extends JsonCollectionContains<HashFSet<ContainedInteger>, ContainedInteger> {
 	public HashFSetContains() {
 		super();
 	}

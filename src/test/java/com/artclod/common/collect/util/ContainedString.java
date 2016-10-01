@@ -22,8 +22,6 @@ public class ContainedString implements Contained<String>, Serializable {
 	public void setValue(String value) {
 		this.value = value;
 	}
-
-	
 	
 	@Override
 	public String toString() {
