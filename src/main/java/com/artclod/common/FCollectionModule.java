@@ -30,6 +30,11 @@ import com.artclod.common.collect.base.LinkedFListDeserializer;
 import com.artclod.common.collect.base.LinkedFListSerializer;
 import com.artclod.common.collect.base.LinkedHashFMapDeserializer;
 import com.artclod.common.collect.base.LinkedHashFSetDeserializer;
+import com.artclod.common.collect.base.NoneDeserializer;
+import com.artclod.common.collect.base.Option;
+import com.artclod.common.collect.base.OptionMixIn;
+import com.artclod.common.collect.base.Some;
+import com.artclod.common.collect.base.SomeDeserializer;
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.module.SimpleAbstractTypeResolver;
 import com.fasterxml.jackson.databind.module.SimpleDeserializers;
@@ -40,7 +45,7 @@ public class FCollectionModule extends SimpleModule {
 	private static final long serialVersionUID = 1L;
 
 	public FCollectionModule() {
-		super("FCollectionModule", new Version(0, 0, 9, "-1", "com.github.kristiankime", "jackson-datatype-functional-collections"));
+		super("FCollectionModule", new Version(0, 0, 10, "-1", "com.github.kristiankime", "jackson-datatype-functional-collections"));
 	}
 
 	// =============== Simple De/Serializers =============== 
@@ -53,6 +58,8 @@ public class FCollectionModule extends SimpleModule {
 		
 		// Deserializers
 		context.addDeserializers(deserializers());
+		
+		context.setMixInAnnotations(Option.class, OptionMixIn.class);
 		
 		// Resolvers
 		SimpleAbstractTypeResolver resolver = new SimpleAbstractTypeResolver();
@@ -81,8 +88,8 @@ public class FCollectionModule extends SimpleModule {
 		deserializers.addDeserializer(LinkedHashFMap.class, new LinkedHashFMapDeserializer());
 		deserializers.addDeserializer(GuavaImFMap.class, new GuavaImFMapDeserializer());
 		
-//		deserializers.addDeserializer(SomeDeserializer.type(), new SomeDeserializer());
-//		deserializers.addDeserializer(NoneDeserializer.type(), new NoneDeserializer());
+		deserializers.addDeserializer(Some.class, new SomeDeserializer());
+		deserializers.addDeserializer(com.artclod.common.collect.base.None.class, new NoneDeserializer());
 		return deserializers;
 	}
 

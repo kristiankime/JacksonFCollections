@@ -48,26 +48,10 @@ public abstract class CollectionWrapperDeserializer<W, C extends Collection<?>, 
 	@SuppressWarnings({ "unchecked" })
 	@Override
 	public W deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JsonProcessingException {
-//		ObjectCodec oc = p.getCodec();
-//		JsonNode node = oc.readTree(p);
-//		JsonNode valueNode = node.get(VALUE);
-//		C inner = (valueType == null) ?
-//				(C) oc.treeToValue(valueNode, Object.class) :
-//				(C) oc.treeToValue(valueNode, valueType.getRawClass());
-		
-//		ObjectCodec oc = p.getCodec();
-//		JsonNode node = oc.readTree(p);
-//		C inner = (valueType == null) ?
-//				(C) oc.treeToValue(node, Object.class) :
-//				(C) oc.treeToValue(node, valueType.getRawClass());
-		
-		
-		
 		ObjectCodec oc = p.getCodec();
 		C inner = (valueType == null) ?
 			(C) oc.readValue(p, wrappedType()) :
 			(C) oc.readValue(p, TypeFactory.defaultInstance().constructCollectionType(wrappedType(), valueType));
-		
 		return wrapCollection(inner);
 	}
 	
