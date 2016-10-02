@@ -32,7 +32,7 @@ import com.artclod.common.collect.base.LinkedHashFMapDeserializer;
 import com.artclod.common.collect.base.LinkedHashFSetDeserializer;
 import com.artclod.common.collect.base.NoneDeserializer;
 import com.artclod.common.collect.base.Option;
-import com.artclod.common.collect.base.OptionMixIn;
+import com.artclod.common.collect.base.OptionDeserializer;
 import com.artclod.common.collect.base.Some;
 import com.artclod.common.collect.base.SomeDeserializer;
 import com.fasterxml.jackson.core.Version;
@@ -59,7 +59,6 @@ public class FCollectionModule extends SimpleModule {
 		// Deserializers
 		context.addDeserializers(deserializers());
 		
-		context.setMixInAnnotations(Option.class, OptionMixIn.class);
 		
 		// Resolvers
 		SimpleAbstractTypeResolver resolver = new SimpleAbstractTypeResolver();
@@ -71,6 +70,10 @@ public class FCollectionModule extends SimpleModule {
 		resolver.addMapping(ImFSet.class, GuavaImFSet.class);
 		resolver.addMapping(FMap.class, LinkedHashFMap.class);
 		resolver.addMapping(ImFMap.class, GuavaImFMap.class);
+
+		// Option will be serialized as a Collection (this means empty array == None, array with one element == Some)
+//		context.setMixInAnnotations(Option.class, OptionMixIn.class);
+
 		context.addAbstractTypeResolver(resolver);	
 	}
 
@@ -90,6 +93,7 @@ public class FCollectionModule extends SimpleModule {
 		
 		deserializers.addDeserializer(Some.class, new SomeDeserializer());
 		deserializers.addDeserializer(com.artclod.common.collect.base.None.class, new NoneDeserializer());
+		deserializers.addDeserializer(Option.class, new OptionDeserializer());
 		return deserializers;
 	}
 
