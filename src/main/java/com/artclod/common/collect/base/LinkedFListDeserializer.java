@@ -3,6 +3,7 @@ package com.artclod.common.collect.base;
 import java.util.LinkedList;
 
 import com.artclod.common.collect.LinkedFList;
+import com.artclod.jackson.databind.CollectionWrapperDeserializer;
 
 public class LinkedFListDeserializer extends CollectionWrapperDeserializer<LinkedFList<?>, LinkedList<?>, LinkedFListDeserializer> {
 

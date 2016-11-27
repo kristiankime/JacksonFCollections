@@ -1,4 +1,4 @@
-package com.artclod.common.collect.base;
+package com.artclod.jackson.databind;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -41,6 +41,8 @@ public abstract class CollectionWrapperDeserializer<W, C extends Collection<?>, 
         THIS deserializer = instance();
         if(property != null){
         	deserializer.valueType = property.getType().containedType(0);
+        } else {
+        	deserializer.valueType = ctxt.getContextualType().containedType(0);
         }
 		return deserializer;
     }

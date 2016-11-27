@@ -5,6 +5,7 @@ import java.util.HashSet;
 
 import com.artclod.common.collect.GuavaImFSet;
 import com.artclod.common.collect.HashFSet;
+import com.artclod.jackson.databind.CollectionWrapperDeserializer;
 
 public class HashFSetDeserializer extends CollectionWrapperDeserializer<HashFSet<?>, HashSet<?>, HashFSetDeserializer> {
 

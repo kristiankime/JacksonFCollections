@@ -2,6 +2,7 @@ package com.artclod.common.collect.base;
 
 
 import com.artclod.common.collect.GuavaImFList;
+import com.artclod.jackson.databind.CollectionWrapperDeserializer;
 import com.google.common.collect.ImmutableList;
 
 public class GuavaImFListDeserializer extends CollectionWrapperDeserializer<GuavaImFList<?>, ImmutableList<?>, GuavaImFListDeserializer> {

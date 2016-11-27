@@ -2,6 +2,7 @@ package com.artclod.common.collect.base;
 
 import com.artclod.common.collect.ArrayFList;
 import com.artclod.common.collect.FList;
+import com.artclod.jackson.databind.CollectionWrapperDeserializer;
 
 public class FListDeserializer extends CollectionWrapperDeserializer<FList<?>, FList<?>, FListDeserializer> {
 

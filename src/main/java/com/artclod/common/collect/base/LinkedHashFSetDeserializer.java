@@ -5,6 +5,7 @@ import java.util.LinkedHashSet;
 
 import com.artclod.common.collect.GuavaImFSet;
 import com.artclod.common.collect.LinkedHashFSet;
+import com.artclod.jackson.databind.CollectionWrapperDeserializer;
 
 public class LinkedHashFSetDeserializer extends CollectionWrapperDeserializer<LinkedHashFSet<?>, LinkedHashSet<?>, LinkedHashFSetDeserializer> {
 
