@@ -1,9 +1,10 @@
-package com.artclod.common.collect.base;
+package com.artclod.common.collect;
 
 
 import java.util.HashMap;
 
 import com.artclod.common.collect.HashFMap;
+import com.artclod.jackson.databind.MapWrapperDeserializer;
 
 public class HashFMapDeserializer extends MapWrapperDeserializer<HashFMap<?, ?>, HashMap<?, ?>, HashFMapDeserializer> {
 

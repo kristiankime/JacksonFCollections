@@ -1,4 +1,4 @@
-package com.artclod.common.collect.base;
+package com.artclod.jackson.databind;
 
 import java.io.IOException;
 import java.util.Map;

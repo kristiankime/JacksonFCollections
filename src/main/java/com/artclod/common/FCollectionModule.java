@@ -1,35 +1,32 @@
 	package com.artclod.common;
 
 import com.artclod.common.collect.ArrayFList;
+import com.artclod.common.collect.ArrayFListDeserializer;
 import com.artclod.common.collect.FCollection;
 import com.artclod.common.collect.FList;
 import com.artclod.common.collect.FMap;
 import com.artclod.common.collect.FSet;
 import com.artclod.common.collect.GuavaImFList;
-import com.artclod.common.collect.GuavaImFListSerializer;
+import com.artclod.common.collect.GuavaImFListDeserializer;
 import com.artclod.common.collect.GuavaImFMap;
+import com.artclod.common.collect.GuavaImFMapDeserializer;
 import com.artclod.common.collect.GuavaImFSet;
-import com.artclod.common.collect.GuavaImFSetSerializer;
+import com.artclod.common.collect.GuavaImFSetDeserializer;
 import com.artclod.common.collect.HashFMap;
+import com.artclod.common.collect.HashFMapDeserializer;
 import com.artclod.common.collect.HashFSet;
+import com.artclod.common.collect.HashFSetDeserializer;
 import com.artclod.common.collect.ImFCollection;
 import com.artclod.common.collect.ImFList;
 import com.artclod.common.collect.ImFMap;
 import com.artclod.common.collect.ImFSet;
 import com.artclod.common.collect.LinkedFList;
+import com.artclod.common.collect.LinkedFListDeserializer;
 import com.artclod.common.collect.LinkedHashFMap;
+import com.artclod.common.collect.LinkedHashFMapDeserializer;
 import com.artclod.common.collect.LinkedHashFSet;
-import com.artclod.common.collect.base.ArrayFListDeserializer;
+import com.artclod.common.collect.LinkedHashFSetDeserializer;
 import com.artclod.common.collect.base.ArrayFListSerializer;
-import com.artclod.common.collect.base.GuavaImFListDeserializer;
-import com.artclod.common.collect.base.GuavaImFMapDeserializer;
-import com.artclod.common.collect.base.GuavaImFSetDeserializer;
-import com.artclod.common.collect.base.HashFMapDeserializer;
-import com.artclod.common.collect.base.HashFSetDeserializer;
-import com.artclod.common.collect.base.LinkedFListDeserializer;
-import com.artclod.common.collect.base.LinkedFListSerializer;
-import com.artclod.common.collect.base.LinkedHashFMapDeserializer;
-import com.artclod.common.collect.base.LinkedHashFSetDeserializer;
 import com.artclod.common.collect.base.NoneDeserializer;
 import com.artclod.common.collect.base.Option;
 import com.artclod.common.collect.base.OptionDeserializer;
@@ -45,7 +42,7 @@ public class FCollectionModule extends SimpleModule {
 	private static final long serialVersionUID = 1L;
 
 	public FCollectionModule() {
-		super("FCollectionModule", new Version(0, 0, 10, "-1", "com.github.kristiankime", "jackson-datatype-functional-collections"));
+		super("FCollectionModule", new Version(0, 0, 11, "-1", "com.github.kristiankime", "jackson-datatype-functional-collections"));
 	}
 
 	// =============== Simple De/Serializers =============== 
@@ -105,9 +102,9 @@ public class FCollectionModule extends SimpleModule {
 	private SimpleSerializers serializers() {
 		SimpleSerializers serializers = new SimpleSerializers();
 		serializers.addSerializer(new ArrayFListSerializer());
-		serializers.addSerializer(new LinkedFListSerializer());
-		serializers.addSerializer(new GuavaImFListSerializer());
-		serializers.addSerializer(new GuavaImFSetSerializer());
+//		serializers.addSerializer(new LinkedFListSerializer());
+//		serializers.addSerializer(new GuavaImFListSerializer());
+//		serializers.addSerializer(new GuavaImFSetSerializer());
 //		serializers.addSerializer(SomeSerializer.type(), new SomeSerializer());
 //		serializers.addSerializer(NoneSerializer.type(), new NoneSerializer());
 		return serializers;

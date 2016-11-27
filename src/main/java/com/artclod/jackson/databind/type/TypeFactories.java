@@ -15,7 +15,7 @@ public class TypeFactories {
 	 * @param elementClass the class of the elements in the collection (this can not nest additional types)
 	 * @return The CollectionType
 	 */
-	public static <C extends Collection<? extends E>, E> CollectionType simpleCollectionType(Class<C> collectionClass, Class<E> elementClass) {
+	public static <C extends Collection<?>, E> CollectionType simpleCollectionType(Class<C> collectionClass, Class<E> elementClass) {
 		TypeFactory typeFactory = TypeFactory.defaultInstance(); 
     	return typeFactory.constructCollectionType(collectionClass, typeFactory.constructType(elementClass));
 	}
@@ -28,7 +28,7 @@ public class TypeFactories {
 	 * @param elementClass the class of the elements in the collection (this can not nest additional types)
 	 * @return The CollectionType
 	 */
-	public static <C extends Collection<? extends E>, E> CollectionType simpleCollectionType(TypeFactory typeFactory, Class<C> collectionClass, Class<E> elementClass) {
+	public static <C extends Collection<?>, E> CollectionType simpleCollectionType(TypeFactory typeFactory, Class<C> collectionClass, Class<E> elementClass) {
     	return  typeFactory.constructCollectionType(collectionClass, typeFactory.constructType(elementClass));
 	}
 	

@@ -1,7 +1,8 @@
-package com.artclod.common.collect.base;
+package com.artclod.common.collect;
 
 
 import com.artclod.common.collect.GuavaImFMap;
+import com.artclod.jackson.databind.MapWrapperDeserializer;
 import com.google.common.collect.ImmutableMap;
 
 public class GuavaImFMapDeserializer extends MapWrapperDeserializer<GuavaImFMap<?, ?>, ImmutableMap<?, ?>, GuavaImFMapDeserializer> {

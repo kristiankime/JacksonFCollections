@@ -1,4 +1,4 @@
-package com.artclod.common.collect.base;
+package com.artclod.common.collect;
 
 
 import com.artclod.common.collect.GuavaImFList;
