@@ -1,4 +1,4 @@
-package com.artclod.common;
+	package com.artclod.common;
 
 import com.artclod.common.collect.ArrayFList;
 import com.artclod.common.collect.FCollection;
@@ -54,13 +54,18 @@ public class FCollectionModule extends SimpleModule {
 		super.setupModule(context);
 		
 		// Serializers
-//		context.addSerializers(serializers());
+//		context.addSerializers(serializers()); Currently use default serializers 
+		// Option will be serialized as a Collection (this means empty array == None, array with one element == Some)
+//		context.setMixInAnnotations(Option.class, OptionMixIn.class);
 		
 		// Deserializers
 		context.addDeserializers(deserializers());
 		
-		
 		// Resolvers
+		context.addAbstractTypeResolver(resolvers());	
+	}
+
+	private SimpleAbstractTypeResolver resolvers() {
 		SimpleAbstractTypeResolver resolver = new SimpleAbstractTypeResolver();
 		resolver.addMapping(FCollection.class, ArrayFList.class);
 		resolver.addMapping(FList.class, ArrayFList.class);
@@ -70,11 +75,7 @@ public class FCollectionModule extends SimpleModule {
 		resolver.addMapping(ImFSet.class, GuavaImFSet.class);
 		resolver.addMapping(FMap.class, LinkedHashFMap.class);
 		resolver.addMapping(ImFMap.class, GuavaImFMap.class);
-
-		// Option will be serialized as a Collection (this means empty array == None, array with one element == Some)
-//		context.setMixInAnnotations(Option.class, OptionMixIn.class);
-
-		context.addAbstractTypeResolver(resolver);	
+		return resolver;
 	}
 
 	private SimpleDeserializers deserializers() {

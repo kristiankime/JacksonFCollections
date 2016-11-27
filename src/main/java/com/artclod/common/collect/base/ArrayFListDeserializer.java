@@ -3,6 +3,7 @@ package com.artclod.common.collect.base;
 import java.util.ArrayList;
 
 import com.artclod.common.collect.ArrayFList;
+import com.artclod.jackson.databind.CollectionWrapperDeserializer;
 
 public class ArrayFListDeserializer extends CollectionWrapperDeserializer<ArrayFList<?>, ArrayList<?>, ArrayFListDeserializer> {
 
