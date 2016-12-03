@@ -4,27 +4,27 @@ import com.artclod.common.collect.ArrayFList;
 import com.artclod.common.collect.FCollection;
 import com.artclod.jackson.databind.CollectionWrapperDeserializer;
 
-public class FCollectionDeserializer extends CollectionWrapperDeserializer<FCollection<?>, FCollection<?>, FCollectionDeserializer> {
+public class FCollectionDeserializer<E> extends CollectionWrapperDeserializer<FCollection<E>, FCollection<E>, E> {
 
 	@Override
-	protected FCollectionDeserializer instance() {
-		return new FCollectionDeserializer();
+	protected FCollectionDeserializer<E> createDeserializer() {
+		return new FCollectionDeserializer<>();
 	}
 
 	@Override
-	protected FCollection<?> wrapCollection(FCollection<?> c) {
+	protected FCollection<E> wrapCollection(FCollection<E> c) {
 		return new ArrayFList<>(c);
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
-	protected Class<FCollection<?>> wrapperType() {
+	protected Class<FCollection<E>> wrapperType() {
 		return (Class) FCollection.class;
 	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
-	protected Class<FCollection<?>> wrappedType() {
+	protected Class<FCollection<E>> wrappedType() {
 		return (Class) FCollection.class;
 	}
 	

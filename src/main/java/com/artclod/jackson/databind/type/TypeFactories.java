@@ -13,6 +13,8 @@ public class TypeFactories {
 	 * 
 	 * @param collectionClass the class of the collection
 	 * @param elementClass the class of the elements in the collection (this can not nest additional types)
+	 * @param <C> The collection type
+	 * @param <E> The collection type
 	 * @return The CollectionType
 	 */
 	public static <C extends Collection<?>, E> CollectionType simpleCollectionType(Class<C> collectionClass, Class<E> elementClass) {
@@ -26,6 +28,8 @@ public class TypeFactories {
 	 * @param typeFactory the {@link TypeFactory} to use to resolve types.
 	 * @param collectionClass the class of the collection
 	 * @param elementClass the class of the elements in the collection (this can not nest additional types)
+	 * @param <C> The collection type
+	 * @param <E> The collection type
 	 * @return The CollectionType
 	 */
 	public static <C extends Collection<?>, E> CollectionType simpleCollectionType(TypeFactory typeFactory, Class<C> collectionClass, Class<E> elementClass) {

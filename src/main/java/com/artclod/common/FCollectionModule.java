@@ -1,5 +1,6 @@
 	package com.artclod.common;
 
+import com.artclod.common.base.T2;
 import com.artclod.common.collect.ArrayFList;
 import com.artclod.common.collect.ArrayFListDeserializer;
 import com.artclod.common.collect.FCollection;
@@ -26,12 +27,12 @@ import com.artclod.common.collect.LinkedHashFMap;
 import com.artclod.common.collect.LinkedHashFMapDeserializer;
 import com.artclod.common.collect.LinkedHashFSet;
 import com.artclod.common.collect.LinkedHashFSetDeserializer;
-import com.artclod.common.collect.base.ArrayFListSerializer;
 import com.artclod.common.collect.base.NoneDeserializer;
 import com.artclod.common.collect.base.Option;
 import com.artclod.common.collect.base.OptionDeserializer;
 import com.artclod.common.collect.base.Some;
 import com.artclod.common.collect.base.SomeDeserializer;
+import com.artclod.common.collect.base.T2MixIn;
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.module.SimpleAbstractTypeResolver;
 import com.fasterxml.jackson.databind.module.SimpleDeserializers;
@@ -51,9 +52,11 @@ public class FCollectionModule extends SimpleModule {
 		super.setupModule(context);
 		
 		// Serializers
-//		context.addSerializers(serializers()); Currently use default serializers 
-		// Option will be serialized as a Collection (this means empty array == None, array with one element == Some)
+		context.addSerializers(serializers()); 
+		
+		// Option are serialized as a Collection (this means empty array == None, array with one element == Some)
 //		context.setMixInAnnotations(Option.class, OptionMixIn.class);
+		context.setMixInAnnotations(T2.class, T2MixIn.class);
 		
 		// Deserializers
 		context.addDeserializers(deserializers());
@@ -75,6 +78,7 @@ public class FCollectionModule extends SimpleModule {
 		return resolver;
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private SimpleDeserializers deserializers() {
 		SimpleDeserializers deserializers = new SimpleDeserializers();
 		deserializers.addDeserializer(ArrayFList.class, new ArrayFListDeserializer());
@@ -98,10 +102,9 @@ public class FCollectionModule extends SimpleModule {
 	/**
 	 * Currently we use the default serializers for Collections/Maps
 	 */
-	@SuppressWarnings("unused")
 	private SimpleSerializers serializers() {
 		SimpleSerializers serializers = new SimpleSerializers();
-		serializers.addSerializer(new ArrayFListSerializer());
+//		serializers.addSerializer(new ArrayFListSerializer());
 //		serializers.addSerializer(new LinkedFListSerializer());
 //		serializers.addSerializer(new GuavaImFListSerializer());
 //		serializers.addSerializer(new GuavaImFSetSerializer());

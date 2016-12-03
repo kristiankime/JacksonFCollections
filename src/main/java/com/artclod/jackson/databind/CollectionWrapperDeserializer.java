@@ -20,25 +20,26 @@ import com.fasterxml.jackson.databind.type.TypeFactory;
  * 
  * @param <W> The wrapper collection type
  * @param <C> The wrapped collection type
- * @param <THIS> The concrete deserializer type (should be the type of the class that is extending this one)
+ * @param <E> The element type
  */
 //http://stackoverflow.com/questions/36159677/how-to-create-a-custom-deserializer-in-jackson-for-a-generic-type
-public abstract class CollectionWrapperDeserializer<W, C extends Collection<?>, THIS extends CollectionWrapperDeserializer<W, C, THIS>> extends JsonDeserializer<W> implements ContextualDeserializer {
-    public static String VALUE = "value";
-	
-	protected JavaType valueType = null;
+public abstract class CollectionWrapperDeserializer<W, C extends Collection<E>, E> extends JsonDeserializer<W> implements ContextualDeserializer {
     
-    protected abstract THIS instance();
+	// === abstract ===
+    protected abstract CollectionWrapperDeserializer<W, C, E> createDeserializer();
     
     protected abstract W wrapCollection(C c);
     
     protected abstract Class<C> wrappedType();
 
     protected abstract Class<W> wrapperType();
-
+    
+	// === concrete ===
+    protected JavaType valueType = null;
+    
     @Override
     public JsonDeserializer<?> createContextual(DeserializationContext ctxt, BeanProperty property) throws JsonMappingException {
-        THIS deserializer = instance();
+    	CollectionWrapperDeserializer<W, C, E> deserializer = createDeserializer();
         if(property != null){
         	deserializer.valueType = property.getType().containedType(0);
         } else {

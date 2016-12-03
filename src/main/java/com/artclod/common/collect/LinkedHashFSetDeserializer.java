@@ -7,27 +7,27 @@ import com.artclod.common.collect.GuavaImFSet;
 import com.artclod.common.collect.LinkedHashFSet;
 import com.artclod.jackson.databind.CollectionWrapperDeserializer;
 
-public class LinkedHashFSetDeserializer extends CollectionWrapperDeserializer<LinkedHashFSet<?>, LinkedHashSet<?>, LinkedHashFSetDeserializer> {
+public class LinkedHashFSetDeserializer<E> extends CollectionWrapperDeserializer<LinkedHashFSet<E>, LinkedHashSet<E>, E> {
 
 	@Override
-	protected LinkedHashFSetDeserializer instance() {
-		return new LinkedHashFSetDeserializer();
+	protected LinkedHashFSetDeserializer<E> createDeserializer() {
+		return new LinkedHashFSetDeserializer<>();
 	}
 
 	@Override
-	protected LinkedHashFSet<?> wrapCollection(LinkedHashSet<?> c) {
+	protected LinkedHashFSet<E> wrapCollection(LinkedHashSet<E> c) {
 		return new LinkedHashFSet<>(c);
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
-	protected Class<LinkedHashFSet<?>> wrapperType() {
+	protected Class<LinkedHashFSet<E>> wrapperType() {
 		return (Class) GuavaImFSet.class;
 	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
-	protected Class<LinkedHashSet<?>> wrappedType() {
+	protected Class<LinkedHashSet<E>> wrappedType() {
 		return (Class) LinkedHashSet.class;
 	}
 	

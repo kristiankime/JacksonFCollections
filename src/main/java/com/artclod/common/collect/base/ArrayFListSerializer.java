@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.jsontype.TypeSerializer;
 import com.fasterxml.jackson.databind.ser.ContainerSerializer;
 
+@Deprecated // This class is here 
 @SuppressWarnings("rawtypes")
 public class ArrayFListSerializer extends ContainerSerializer<ArrayFList>  {
 //extends JsonSerializer<ArrayFList<?>>  {

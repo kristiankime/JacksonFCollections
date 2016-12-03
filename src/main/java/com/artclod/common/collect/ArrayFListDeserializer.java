@@ -5,15 +5,15 @@ import java.util.ArrayList;
 import com.artclod.common.collect.ArrayFList;
 import com.artclod.jackson.databind.CollectionWrapperDeserializer;
 
-public class ArrayFListDeserializer extends CollectionWrapperDeserializer<ArrayFList<?>, ArrayList<?>, ArrayFListDeserializer> {
+public class ArrayFListDeserializer<E> extends CollectionWrapperDeserializer<ArrayFList<?>, ArrayList<E>, E> {
 
 	@Override
-	protected ArrayFListDeserializer instance() {
-		return new ArrayFListDeserializer();
+	protected ArrayFListDeserializer<E> createDeserializer() {
+		return new ArrayFListDeserializer<>();
 	}
 
 	@Override
-	protected ArrayFList<?> wrapCollection(ArrayList<?> c) {
+	protected ArrayFList<E> wrapCollection(ArrayList<E> c) {
 		return new ArrayFList<>(c);
 	}
 
@@ -25,7 +25,7 @@ public class ArrayFListDeserializer extends CollectionWrapperDeserializer<ArrayF
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
-	protected Class<ArrayList<?>> wrappedType() {
+	protected Class<ArrayList<E>> wrappedType() {
 		return (Class) ArrayList.class;
 	}
 	

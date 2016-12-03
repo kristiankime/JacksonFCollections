@@ -25,7 +25,8 @@ public class Json {
 		mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
 		mapper.registerModule(new GuavaModule());
 		mapper.registerModule(new Jdk8Module());
-		mapper.registerModule(new FCollectionModule());
+		FCollectionModule module = new FCollectionModule();
+		mapper.registerModule(module);
 		
 		SimpleModule simpleModule = new SimpleModule();
 		simpleModule.addKeySerializer(ContainedInteger.class, new ContainedIntegerSerializer());

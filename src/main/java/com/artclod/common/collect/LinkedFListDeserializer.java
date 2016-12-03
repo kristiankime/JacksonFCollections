@@ -5,27 +5,27 @@ import java.util.LinkedList;
 import com.artclod.common.collect.LinkedFList;
 import com.artclod.jackson.databind.CollectionWrapperDeserializer;
 
-public class LinkedFListDeserializer extends CollectionWrapperDeserializer<LinkedFList<?>, LinkedList<?>, LinkedFListDeserializer> {
+public class LinkedFListDeserializer<E> extends CollectionWrapperDeserializer<LinkedFList<E>, LinkedList<E>, E> {
 
 	@Override
-	protected LinkedFListDeserializer instance() {
-		return new LinkedFListDeserializer();
+	protected LinkedFListDeserializer<E> createDeserializer() {
+		return new LinkedFListDeserializer<>();
 	}
 
 	@Override
-	protected LinkedFList<?> wrapCollection(LinkedList<?> c) {
+	protected LinkedFList<E> wrapCollection(LinkedList<E> c) {
 		return new LinkedFList<>(c);
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
-	protected Class<LinkedFList<?>> wrapperType() {
+	protected Class<LinkedFList<E>> wrapperType() {
 		return (Class) LinkedFList.class;
 	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
-	protected Class<LinkedList<?>> wrappedType() {
+	protected Class<LinkedList<E>> wrappedType() {
 		return (Class) LinkedList.class;
 	}
 	

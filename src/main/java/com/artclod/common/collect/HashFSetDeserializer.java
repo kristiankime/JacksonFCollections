@@ -7,27 +7,27 @@ import com.artclod.common.collect.GuavaImFSet;
 import com.artclod.common.collect.HashFSet;
 import com.artclod.jackson.databind.CollectionWrapperDeserializer;
 
-public class HashFSetDeserializer extends CollectionWrapperDeserializer<HashFSet<?>, HashSet<?>, HashFSetDeserializer> {
+public class HashFSetDeserializer<E> extends CollectionWrapperDeserializer<HashFSet<E>, HashSet<E>, E> {
 
 	@Override
-	protected HashFSetDeserializer instance() {
-		return new HashFSetDeserializer();
+	protected HashFSetDeserializer<E> createDeserializer() {
+		return new HashFSetDeserializer<E>();
 	}
 
 	@Override
-	protected HashFSet<?> wrapCollection(HashSet<?> c) {
+	protected HashFSet<E> wrapCollection(HashSet<E> c) {
 		return new HashFSet<>(c);
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
-	protected Class<HashFSet<?>> wrapperType() {
+	protected Class<HashFSet<E>> wrapperType() {
 		return (Class) GuavaImFSet.class;
 	}
 	
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
-	protected Class<HashSet<?>> wrappedType() {
+	protected Class<HashSet<E>> wrappedType() {
 		return (Class) HashSet.class;
 	}
 	
