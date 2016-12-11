@@ -4,12 +4,12 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.artclod.common.base.T2;
+import com.artclod.common.base.T3;
 import com.artclod.common.collect.Json;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 
-public class T2Test  {
+public class T3Test  {
 
 	public ObjectMapper objectMapper() {
 		return Json.objectMapper();
@@ -18,18 +18,18 @@ public class T2Test  {
 	@Test
 	public void test_simple_objects() throws Exception {
     	ObjectMapper objectMapper = objectMapper();
-    	T2<Integer, String> object = new T2<>(1, "test");
+    	T3<Integer, String, Double> object = new T3<>(1, "test", 5.6);
     	String serialized = objectMapper.writeValueAsString(object);
-    	T2<?, ?> deserialized = objectMapper.readValue(serialized, T2.class);
+    	T3<?, ?, ?> deserialized = objectMapper.readValue(serialized, T3.class);
         assertEquals(object, deserialized);
 	}
 	
 	@Test
 	public void test_nested_objects() throws Exception {
     	ObjectMapper objectMapper = objectMapper();
-    	T2<Foo, String> object = new T2<>(new Foo(1, 2), "test");
+    	T3<Foo, String, Double> object = new T3<>(new Foo(1, 2), "test", 5.6);
     	String serialized = objectMapper.writeValueAsString(object);
-    	T2<Foo, String> deserialized = objectMapper.readValue(serialized, TypeFactory.defaultInstance().constructParametricType(T2.class, Foo.class, String.class));
+    	T3<Foo, String, Double> deserialized = objectMapper.readValue(serialized, TypeFactory.defaultInstance().constructParametricType(T3.class, Foo.class, String.class, Double.class));
         assertEquals(object, deserialized);
 	}
 	

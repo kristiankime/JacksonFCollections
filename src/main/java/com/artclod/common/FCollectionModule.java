@@ -1,6 +1,7 @@
 	package com.artclod.common;
 
 import com.artclod.common.base.T2;
+import com.artclod.common.base.T3;
 import com.artclod.common.collect.ArrayFList;
 import com.artclod.common.collect.ArrayFListDeserializer;
 import com.artclod.common.collect.FCollection;
@@ -33,6 +34,9 @@ import com.artclod.common.collect.base.OptionDeserializer;
 import com.artclod.common.collect.base.Some;
 import com.artclod.common.collect.base.SomeDeserializer;
 import com.artclod.common.collect.base.T2MixIn;
+import com.artclod.common.collect.base.T2Serializer;
+import com.artclod.common.collect.base.T3MixIn;
+import com.artclod.common.collect.base.T3Serializer;
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.module.SimpleAbstractTypeResolver;
 import com.fasterxml.jackson.databind.module.SimpleDeserializers;
@@ -54,9 +58,8 @@ public class FCollectionModule extends SimpleModule {
 		// Serializers
 		context.addSerializers(serializers()); 
 		
-		// Option are serialized as a Collection (this means empty array == None, array with one element == Some)
-//		context.setMixInAnnotations(Option.class, OptionMixIn.class);
-		context.setMixInAnnotations(T2.class, T2MixIn.class);
+		context.setMixInAnnotations(T2.class, T2MixIn.class); // Note: this also has custom serializer (see javadoc)
+		context.setMixInAnnotations(T3.class, T3MixIn.class); // Note: this also has custom serializer (see javadoc)
 		
 		// Deserializers
 		context.addDeserializers(deserializers());
@@ -101,6 +104,7 @@ public class FCollectionModule extends SimpleModule {
 
 	/**
 	 * Currently we use the default serializers for Collections/Maps
+	 * Options are serialized as a Collection (this means empty array == None, array with one element == Some)
 	 */
 	private SimpleSerializers serializers() {
 		SimpleSerializers serializers = new SimpleSerializers();
@@ -110,6 +114,8 @@ public class FCollectionModule extends SimpleModule {
 //		serializers.addSerializer(new GuavaImFSetSerializer());
 //		serializers.addSerializer(SomeSerializer.type(), new SomeSerializer());
 //		serializers.addSerializer(NoneSerializer.type(), new NoneSerializer());
+		serializers.addSerializer(new T2Serializer<>());
+		serializers.addSerializer(new T3Serializer<>());
 		return serializers;
 	}
 	
