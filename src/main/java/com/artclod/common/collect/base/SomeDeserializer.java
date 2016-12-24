@@ -25,6 +25,8 @@ public class SomeDeserializer extends JsonDeserializer<Some<?>> implements Conte
     	SomeDeserializer deserializer = new SomeDeserializer();
         if(property != null){
         	deserializer.valueType = property.getType().containedType(0);
+        } else {
+        	deserializer.valueType = ctxt.getContextualType().containedType(0);
         }
 		return deserializer;
     }
@@ -37,7 +39,7 @@ public class SomeDeserializer extends JsonDeserializer<Some<?>> implements Conte
 			(ArrayList<?>) oc.readValue(p, TypeFactory.defaultInstance().constructCollectionType(ArrayList.class, valueType));
 		
 		if(inner.size() != 1) {
-			throw new JsonParseException(p, "Some had " + inner.size() + " elements should have had 1");
+			throw new JsonParseException(p, "Some had " + inner.size() + " elements, should have had 1");
 		}
 			
 		return new Some<>(inner.get(0));

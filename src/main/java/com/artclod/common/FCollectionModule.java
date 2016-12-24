@@ -28,9 +28,15 @@ import com.artclod.common.collect.LinkedHashFMap;
 import com.artclod.common.collect.LinkedHashFMapDeserializer;
 import com.artclod.common.collect.LinkedHashFSet;
 import com.artclod.common.collect.LinkedHashFSetDeserializer;
+import com.artclod.common.collect.base.Either;
+import com.artclod.common.collect.base.EitherMixIn;
+import com.artclod.common.collect.base.Left;
+import com.artclod.common.collect.base.LeftMixIn;
 import com.artclod.common.collect.base.NoneDeserializer;
 import com.artclod.common.collect.base.Option;
 import com.artclod.common.collect.base.OptionDeserializer;
+import com.artclod.common.collect.base.Right;
+import com.artclod.common.collect.base.RightMixIn;
 import com.artclod.common.collect.base.Some;
 import com.artclod.common.collect.base.SomeDeserializer;
 import com.artclod.common.collect.base.T2MixIn;
@@ -60,6 +66,10 @@ public class FCollectionModule extends SimpleModule {
 		
 		context.setMixInAnnotations(T2.class, T2MixIn.class); // Note: this also has custom serializer (see javadoc)
 		context.setMixInAnnotations(T3.class, T3MixIn.class); // Note: this also has custom serializer (see javadoc)
+		
+		context.setMixInAnnotations(Either.class, EitherMixIn.class);
+		context.setMixInAnnotations(Left.class, LeftMixIn.class);
+		context.setMixInAnnotations(Right.class, RightMixIn.class);
 		
 		// Deserializers
 		context.addDeserializers(deserializers());
