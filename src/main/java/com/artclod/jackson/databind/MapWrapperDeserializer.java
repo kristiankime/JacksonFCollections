@@ -58,7 +58,7 @@ public abstract class MapWrapperDeserializer<W, M extends Map<K, V>, K , V> exte
 		ObjectCodec oc = p.getCodec();
 		M inner = (keyType == null || valueType == null) ?
 			(M) oc.readValue(p, wrappedType()) :
-			(M) oc.readValue(p, TypeFactory.defaultInstance().constructMapType(wrappedType(), keyType, valueType));
+			(M) oc.readValue(p, ctxt.getTypeFactory().constructMapType(wrappedType(), keyType, valueType));
 		
 		return wrapCollection(inner);
 	}

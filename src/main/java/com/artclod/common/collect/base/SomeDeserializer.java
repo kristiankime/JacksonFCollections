@@ -36,7 +36,7 @@ public class SomeDeserializer extends JsonDeserializer<Some<?>> implements Conte
 		ObjectCodec oc = p.getCodec();
 		ArrayList<?> inner = (valueType == null) ?
 			(ArrayList<?>) oc.readValue(p, ArrayList.class) :
-			(ArrayList<?>) oc.readValue(p, TypeFactory.defaultInstance().constructCollectionType(ArrayList.class, valueType));
+			(ArrayList<?>) oc.readValue(p, ctxt.getTypeFactory().constructCollectionType(ArrayList.class, valueType));
 		
 		if(inner.size() != 1) {
 			throw new JsonParseException(p, "Some had " + inner.size() + " elements, should have had 1");

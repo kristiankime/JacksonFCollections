@@ -34,7 +34,7 @@ public class OptionDeserializer extends JsonDeserializer<Option<?>> implements C
 		ObjectCodec oc = p.getCodec();
 		ArrayList<?> inner = (valueType == null) ?
 			(ArrayList<?>) oc.readValue(p, ArrayList.class) :
-			(ArrayList<?>) oc.readValue(p, TypeFactory.defaultInstance().constructCollectionType(ArrayList.class, valueType));
+			(ArrayList<?>) oc.readValue(p, ctxt.getTypeFactory().constructCollectionType(ArrayList.class, valueType));
 		
 		if(inner.size() == 0) {
 			return com.artclod.common.collect.base.None.withType();

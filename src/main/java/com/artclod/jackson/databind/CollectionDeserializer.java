@@ -13,7 +13,6 @@ import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.deser.ContextualDeserializer;
-import com.fasterxml.jackson.databind.type.TypeFactory;
 
 //http://stackoverflow.com/questions/36159677/how-to-create-a-custom-deserializer-in-jackson-for-a-generic-type
 public abstract class CollectionDeserializer<C extends Collection<E>, E> extends JsonDeserializer<C> implements ContextualDeserializer {
@@ -45,7 +44,7 @@ public abstract class CollectionDeserializer<C extends Collection<E>, E> extends
 		ObjectCodec oc = p.getCodec();
 		ArrayList<?> data = (valueType == null) ?
 			(ArrayList<?>) oc.readValue(p, ArrayList.class) :
-			(ArrayList<?>) oc.readValue(p, TypeFactory.defaultInstance().constructCollectionType(ArrayList.class, valueType));
+			(ArrayList<?>) oc.readValue(p, ctxt.getTypeFactory().constructCollectionType(ArrayList.class, valueType));
 		return createCollection((Collection<E>) data);
 	}
 	
