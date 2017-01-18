@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.deser.ContextualDeserializer;
+import com.fasterxml.jackson.databind.type.CollectionLikeType;
 
 //http://stackoverflow.com/questions/36159677/how-to-create-a-custom-deserializer-in-jackson-for-a-generic-type
 public abstract class CollectionDeserializer<C extends Collection<E>, E> extends JsonDeserializer<C> implements ContextualDeserializer {
@@ -23,18 +24,14 @@ public abstract class CollectionDeserializer<C extends Collection<E>, E> extends
 	protected abstract C createCollection(Collection<E> data);	
 	
 	protected abstract Class<C> collectionType();
-
-	protected JavaType valueType = null;
 	
 	// === concrete ===
-    @Override
+	protected JavaType valueType = null;
+
+	@Override
     public JsonDeserializer<C> createContextual(DeserializationContext ctxt, BeanProperty property) throws JsonMappingException {
     	CollectionDeserializer<C, E> deserializer = createDeserializer();
-        if(property != null){
-        	deserializer.valueType = property.getType().getSuperClass().containedType(0);  
-        } else {
-        	deserializer.valueType = ctxt.getContextualType().containedType(0);
-        }
+    	deserializer.valueType = getValueType(ctxt, property);
 		return deserializer;
     }
     
@@ -51,6 +48,21 @@ public abstract class CollectionDeserializer<C extends Collection<E>, E> extends
 	@Override
 	public Class<C> handledType() {
 		return collectionType();
+	}
+	
+	// === static support methods ===
+	public static JavaType getValueType(DeserializationContext ctxt, BeanProperty property) {
+		JavaType type = (property == null ? null : property.getType().containedType(0));
+    	
+    	if(type == null) { 
+    		type = ctxt.getContextualType().containedType(0); 
+    	} 
+    	
+    	if(type == null && ctxt.getContextualType() instanceof CollectionLikeType) {
+    		CollectionLikeType collectionLikeType = (CollectionLikeType) ctxt.getContextualType();
+    		type = collectionLikeType.getContentType();
+    	}
+		return type;
 	}
 	
 }

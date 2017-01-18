@@ -39,11 +39,7 @@ public abstract class CollectionWrapperDeserializer<W, C extends Collection<E>, 
     @Override
     public JsonDeserializer<?> createContextual(DeserializationContext ctxt, BeanProperty property) throws JsonMappingException {
     	CollectionWrapperDeserializer<W, C, E> deserializer = createDeserializer();
-        if(property != null){
-        	deserializer.valueType = property.getType().containedType(0);
-        } else {
-        	deserializer.valueType = ctxt.getContextualType().containedType(0);
-        }
+    	deserializer.valueType = CollectionDeserializer.getValueType(ctxt, property);
 		return deserializer;
     }
 	

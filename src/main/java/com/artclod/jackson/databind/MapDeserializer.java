@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.deser.ContextualDeserializer;
+import com.fasterxml.jackson.databind.type.MapLikeType;
 
 /**
  * This class handles of the needs of json deserialization for a class that is simply a wrapper around an existing Java Map that already has a deserializer.
@@ -39,14 +40,9 @@ public abstract class MapDeserializer<M extends Map<K, V>, K, V> extends JsonDes
     @Override
     public JsonDeserializer<?> createContextual(DeserializationContext ctxt, BeanProperty property) throws JsonMappingException {
     	 MapDeserializer<M, K, V> deserializer = createDeserializer();
-        if(property != null) {
-        	deserializer.keyType = property.getType().containedType(0);
-        	deserializer.valueType = property.getType().containedType(1);
-        } else {
-        	deserializer.keyType = ctxt.getContextualType().containedType(0);
-        	deserializer.valueType = ctxt.getContextualType().containedType(1);
-        }
-		return deserializer;
+    	 deserializer.keyType = getKeyType(ctxt, property);
+	     deserializer.valueType = getValueType(ctxt, property);
+	     return deserializer;
     }
 	
 	@SuppressWarnings({ "unchecked" })
@@ -65,4 +61,30 @@ public abstract class MapDeserializer<M extends Map<K, V>, K, V> extends JsonDes
 		return mapType();
 	}
 	
+	// === static support methods ===
+	public static JavaType getKeyType(DeserializationContext ctxt, BeanProperty property) {
+		JavaType type = (property == null ? null : property.getType().containedType(0));
+    	 
+    	 if(type == null) {
+    		 type = ctxt.getContextualType().containedType(0);
+    	 }
+    	 
+    	 if(type == null && ctxt.getContextualType() instanceof MapLikeType) {
+    		 type = ((MapLikeType) ctxt.getContextualType()).getKeyType();
+    	 }
+		return type;
+	}
+	
+	public static JavaType getValueType(DeserializationContext ctxt, BeanProperty property) {
+		JavaType type = (property == null ? null : property.getType().containedType(1));
+    	 
+    	 if(type == null) {
+    		 type = ctxt.getContextualType().containedType(1);
+    	 }
+    	 
+    	 if(type == null && ctxt.getContextualType() instanceof MapLikeType) {
+    		 type = ((MapLikeType) ctxt.getContextualType()).getContentType();
+    	 }
+		return type;
+	}
 }

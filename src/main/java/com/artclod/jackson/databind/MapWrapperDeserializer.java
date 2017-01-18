@@ -12,7 +12,6 @@ import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.deser.ContextualDeserializer;
-import com.fasterxml.jackson.databind.type.TypeFactory;
 
 /**
  * This class handles of the needs of json deserialization for a class that is simply a wrapper around an existing Java Map that already has a deserializer.
@@ -42,14 +41,9 @@ public abstract class MapWrapperDeserializer<W, M extends Map<K, V>, K , V> exte
     @Override
     public JsonDeserializer<?> createContextual(DeserializationContext ctxt, BeanProperty property) throws JsonMappingException {
     	MapWrapperDeserializer<W, M, K , V> deserializer = instance();
-        if(property != null) {
-        	deserializer.keyType = property.getType().containedType(0);
-        	deserializer.valueType = property.getType().containedType(1);
-        } else {
-        	deserializer.keyType = ctxt.getContextualType().containedType(0);
-        	deserializer.valueType = ctxt.getContextualType().containedType(1);
-        }
-		return deserializer;
+    	deserializer.keyType = MapDeserializer.getKeyType(ctxt, property);
+	    deserializer.valueType = MapDeserializer.getValueType(ctxt, property);
+	    return deserializer;
     }
 	
 	@SuppressWarnings({ "unchecked" })
