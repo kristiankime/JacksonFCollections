@@ -17,7 +17,7 @@ apply plugin: 'maven' // https://gradle.org/docs/current/userguide/artifact_mana
 sourceCompatibility = 1.8
 
 group = 'com.github.kristiankime'
-version = '0.0.12-3'
+version = '0.0.13-1'
 archivesBaseName = "jackson-datatype-functional-collections"
 
 repositories {
@@ -25,7 +25,7 @@ repositories {
 }
 
 dependencies {
-	compile group: 'com.github.kristiankime',        name: 'functional-collections', version: '0.0.12' 
+	compile group: 'com.github.kristiankime',        name: 'functional-collections', version: '0.0.13' 
 	compile group: 'com.fasterxml.jackson.core',     name: 'jackson-databind',       version: '2.7.4'
 	compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jdk8',	 version: '2.7.4'
 	compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-guava', version: '2.7.4'

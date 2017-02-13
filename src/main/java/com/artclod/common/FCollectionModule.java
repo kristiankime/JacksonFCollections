@@ -1,7 +1,14 @@
 	package com.artclod.common;
 
+import com.artclod.common.base.T10;
 import com.artclod.common.base.T2;
 import com.artclod.common.base.T3;
+import com.artclod.common.base.T4;
+import com.artclod.common.base.T5;
+import com.artclod.common.base.T6;
+import com.artclod.common.base.T7;
+import com.artclod.common.base.T8;
+import com.artclod.common.base.T9;
 import com.artclod.common.collect.ArrayFList;
 import com.artclod.common.collect.ArrayFListDeserializer;
 import com.artclod.common.collect.FCollection;
@@ -39,10 +46,24 @@ import com.artclod.common.collect.base.Right;
 import com.artclod.common.collect.base.RightMixIn;
 import com.artclod.common.collect.base.Some;
 import com.artclod.common.collect.base.SomeDeserializer;
+import com.artclod.common.collect.base.T10MixIn;
+import com.artclod.common.collect.base.T10Serializer;
 import com.artclod.common.collect.base.T2MixIn;
 import com.artclod.common.collect.base.T2Serializer;
 import com.artclod.common.collect.base.T3MixIn;
 import com.artclod.common.collect.base.T3Serializer;
+import com.artclod.common.collect.base.T4MixIn;
+import com.artclod.common.collect.base.T4Serializer;
+import com.artclod.common.collect.base.T5MixIn;
+import com.artclod.common.collect.base.T5Serializer;
+import com.artclod.common.collect.base.T6MixIn;
+import com.artclod.common.collect.base.T6Serializer;
+import com.artclod.common.collect.base.T7MixIn;
+import com.artclod.common.collect.base.T7Serializer;
+import com.artclod.common.collect.base.T8MixIn;
+import com.artclod.common.collect.base.T8Serializer;
+import com.artclod.common.collect.base.T9MixIn;
+import com.artclod.common.collect.base.T9Serializer;
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.module.SimpleAbstractTypeResolver;
 import com.fasterxml.jackson.databind.module.SimpleDeserializers;
@@ -66,6 +87,13 @@ public class FCollectionModule extends SimpleModule {
 		
 		context.setMixInAnnotations(T2.class, T2MixIn.class); // Note: this also has custom serializer (see javadoc)
 		context.setMixInAnnotations(T3.class, T3MixIn.class); // Note: this also has custom serializer (see javadoc)
+		context.setMixInAnnotations(T4.class, T4MixIn.class); // Note: this also has custom serializer (see javadoc)
+		context.setMixInAnnotations(T5.class, T5MixIn.class); // Note: this also has custom serializer (see javadoc)
+		context.setMixInAnnotations(T6.class, T6MixIn.class); // Note: this also has custom serializer (see javadoc)
+		context.setMixInAnnotations(T7.class, T7MixIn.class); // Note: this also has custom serializer (see javadoc)
+		context.setMixInAnnotations(T8.class, T8MixIn.class); // Note: this also has custom serializer (see javadoc)
+		context.setMixInAnnotations(T9.class, T9MixIn.class); // Note: this also has custom serializer (see javadoc)
+		context.setMixInAnnotations(T10.class, T10MixIn.class); // Note: this also has custom serializer (see javadoc)
 		
 		context.setMixInAnnotations(Either.class, EitherMixIn.class);
 		context.setMixInAnnotations(Left.class, LeftMixIn.class);
@@ -126,6 +154,13 @@ public class FCollectionModule extends SimpleModule {
 //		serializers.addSerializer(NoneSerializer.type(), new NoneSerializer());
 		serializers.addSerializer(new T2Serializer<>());
 		serializers.addSerializer(new T3Serializer<>());
+		serializers.addSerializer(new T4Serializer<>());
+		serializers.addSerializer(new T5Serializer<>());
+		serializers.addSerializer(new T6Serializer<>());
+		serializers.addSerializer(new T7Serializer<>());
+		serializers.addSerializer(new T8Serializer<>());
+		serializers.addSerializer(new T9Serializer<>());
+		serializers.addSerializer(new T10Serializer<>());
 		return serializers;
 	}
 	
